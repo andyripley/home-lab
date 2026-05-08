@@ -1,0 +1,9 @@
+[tools]
+yamllint = "latest"
+tflint = "latest"
+yamlfmt = "latest"
+opentofu = "1.11"
+talosctl = "1.13.0"
+
+[env]
+_.file = '.env'

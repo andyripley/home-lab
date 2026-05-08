@@ -1,0 +1,6 @@
+.archive/
+.terraform/
+.terraform.*
+.env
+output/
+*auto.tfvars
