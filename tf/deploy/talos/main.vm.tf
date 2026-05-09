@@ -25,10 +25,12 @@ resource "proxmox_download_file" "this" {
 resource "proxmox_virtual_environment_vm" "this" {
   for_each = var.nodes
 
-  name      = each.key
-  node_name = each.value.host_node
-  vm_id     = each.value.vm_id
-  tags      = each.value.machine_type == "controlplane" ? ["k8s", "control-plane"] : ["k8s", "worker"]
+  name            = each.key
+  node_name       = each.value.host_node
+  vm_id           = each.value.vm_id
+  tags            = each.value.machine_type == "controlplane" ? ["k8s", "control-plane"] : ["k8s", "worker"]
+  started         = true
+  stop_on_destroy = true
 
   machine       = "q35"
   scsi_hardware = "virtio-scsi-pci"
@@ -36,6 +38,10 @@ resource "proxmox_virtual_environment_vm" "this" {
 
   agent {
     enabled = true
+  }
+
+  startup {
+    order = "3"
   }
 
   cpu {

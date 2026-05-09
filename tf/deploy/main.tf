@@ -12,7 +12,7 @@ module "talos" {
 
   cilium = {
     install = file("${path.module}/talos/manifests/cilium-install.yaml")
-    values  = file("${path.module}/../k8s/cilium/values.yaml")
+    values  = file("${path.module}/../../k8s/cilium/values.yaml")
   }
 
 
@@ -49,19 +49,19 @@ module "talos" {
 resource "local_file" "machine_configs" {
   for_each        = module.talos.machine_config
   content         = each.value.machine_configuration
-  filename        = "../output/talos-machine-config-${each.key}.yaml"
+  filename        = "../../output/talos-machine-config-${each.key}.yaml"
   file_permission = "0600"
 }
 
 resource "local_file" "talos_config" {
   content         = module.talos.client_configuration.talos_config
-  filename        = "../output/talos-config.yaml"
+  filename        = "../../output/talos-config.yaml"
   file_permission = "0600"
 }
 
 resource "local_file" "kube_config" {
   content         = module.talos.kube_config
-  filename        = "../output/kube-config.yaml"
+  filename        = "../../output/kube-config.yaml"
   file_permission = "0600"
 }
 

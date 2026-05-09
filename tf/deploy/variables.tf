@@ -11,7 +11,7 @@ variable "proxmox" {
 
 variable "s3-backend" {
   type = object({
-    bucket = string
+    bucket   = string
     endpoint = string
   })
 }
