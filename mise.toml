@@ -5,6 +5,8 @@ yamlfmt = "latest"
 opentofu = "1.11"
 talosctl = "1.13.0"
 kubeseal = "latest"
+aws = "2.34.45"
+atmos = "1.217.0"
 
 [env]
 _.file = '.env'
