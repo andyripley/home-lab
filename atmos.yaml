@@ -1,0 +1,36 @@
+base_path: "."
+
+components:
+  terraform:
+    command: "tofu"
+    base_path: "components/terraform"
+    apply_auto_approve: true
+    auto_generate_backend_file: true
+    deploy_run_init: true
+    destroy_auto_approve: true
+    init_run_reconfigure: true
+  
+stacks:
+  base_path: "stacks"
+  include_paths:
+    - "deploy/**/*"
+  exclude_paths:
+    - "**/defaults.tf"
+  name_template: "{{ .vars.environment }}"
+
+workflows:
+  base_path: "stacks/workflows"
+
+validate:
+  editorconfig: true
+  config_file_paths:
+    - ".editorconfig"
+  exclude:
+    - ".terraform/**"
+  disable_max_line_length: true
+  disable_trim_trailing_whitespace: true
+
+settings:
+  experimental: silence
+  telemetry: 
+    enabled: false
