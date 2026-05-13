@@ -13,11 +13,13 @@ variable "image" {
 variable "cluster" {
   description = "Cluster configuration"
   type = object({
-    name            = string
-    endpoint        = string
-    gateway         = string
-    talos_version   = string
-    proxmox_cluster = string
+    name               = string
+    endpoint           = string
+    gateway            = optional(string)
+    talos_version      = string
+    kubernetes_version = string
+    extra_manifests    = optional(list(string))
+    proxmox_cluster    = string
   })
 }
 
@@ -28,6 +30,8 @@ variable "nodes" {
     host_node    = string
     machine_type = string
     ip           = string
+    mac_address  = string
+    dns          = optional(list(string))
     vm_id        = number
     cpu_cores    = number
     ram          = number
@@ -35,11 +39,4 @@ variable "nodes" {
   }))
 }
 
-variable "cilium" {
-  description = "Cilium configuration"
-  type = object({
-    values  = string
-    install = string
-  })
-}
 

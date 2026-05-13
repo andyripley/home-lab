@@ -1,0 +1,18 @@
+machine:
+  nodeLabels:
+    topology.kubernetes.io/region: ${cluster_name}
+    topology.kubernetes.io/zone: ${node_name}
+
+%{ if machine_type == "controlplane" }
+cluster:
+  allowSchedulingOnControlPlanes: true
+  network:
+    cni:
+      name: flannel
+  discovery:
+    enabled: true
+    registries:
+      service:
+        disabled: false
+  extraManifests: ${extra_manifests}
+%{ endif }

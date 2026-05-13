@@ -54,8 +54,9 @@ resource "proxmox_virtual_environment_vm" "this" {
   }
 
   network_device {
-    bridge = "vmbr0"
-    model  = "virtio"
+    bridge      = "vmbr0"
+    model       = "virtio"
+    mac_address = each.value.mac_address
   }
 
   disk {
@@ -81,6 +82,14 @@ resource "proxmox_virtual_environment_vm" "this" {
 
   initialization {
     datastore_id = each.value.datastore_id
+
+    dynamic "dns" {
+      for_each = try(each.value.dns, null) != null ? { "enabled" = each.value.dns } : {}
+      content {
+        servers = each.value.dns
+      }
+    }
+
     ip_config {
       ipv4 {
         address = "${each.value.ip}/24"

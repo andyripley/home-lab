@@ -1,6 +1,4 @@
-resource "talos_machine_secrets" "this" {
-  talos_version = var.cluster.talos_version
-}
+resource "talos_machine_secrets" "this" {}
 
 data "talos_client_configuration" "this" {
   cluster_name         = var.cluster.name
@@ -16,19 +14,15 @@ data "talos_machine_configuration" "this" {
   talos_version    = var.cluster.talos_version
   machine_type     = each.value.machine_type
   machine_secrets  = talos_machine_secrets.this.machine_secrets
-  config_patches = each.value.machine_type == "controlplane" ? [
-    templatefile("${path.module}/templates/control-plane.yaml.tftpl", {
-      hostname       = each.key
-      node_name      = each.value.host_node
-      cluster_name   = var.cluster.proxmox_cluster
-      cilium_values  = var.cilium.values
-      cilium_install = var.cilium.install
-    })
-    ] : [
-    templatefile("${path.module}/templates/worker.yaml.tftpl", {
-      hostname     = each.key
-      node_name    = each.value.host_node
-      cluster_name = var.cluster.proxmox_cluster
+  config_patches = [
+    templatefile("${path.module}/templates/hostname-config.yaml.tftpl", {
+      hostname = each.key
+    }),
+    templatefile("${path.module}/templates/machine-config.yaml.tftpl", {
+      node_name       = each.value.host_node
+      cluster_name    = var.cluster.proxmox_cluster
+      extra_manifests = each.value.machine_type == "controlplane" ? jsonencode(var.cluster.extra_manifests) : null
+      machine_type    = each.value.machine_type
     })
   ]
 }
@@ -45,6 +39,7 @@ resource "talos_machine_configuration_apply" "this" {
 }
 
 resource "talos_machine_bootstrap" "this" {
+  depends_on           = [proxmox_virtual_environment_vm.this]
   node                 = [for k, v in var.nodes : v.ip if v.machine_type == "controlplane"][0]
   endpoint             = var.cluster.endpoint
   client_configuration = talos_machine_secrets.this.client_configuration
