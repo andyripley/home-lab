@@ -1,0 +1,13 @@
+terraform:
+  backend_type: gcs
+  backend:
+    gcs:
+      bucket: "home-lab-state"
+
+
+hooks:
+  store_output:
+    events:
+      - after-terraform-apply
+    command: store
+    name: home-lab/gcp

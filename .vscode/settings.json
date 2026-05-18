@@ -15,8 +15,11 @@
     },
     "yaml.customTags": [
       "!env",
+      "!import",
+      "!import.raw",
       "!include",
       "!store",
+      "!store.get",
       "!template",
       "!terraform.output",
       "!terraform.state"

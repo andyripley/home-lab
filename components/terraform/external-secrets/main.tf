@@ -17,7 +17,7 @@ resource "kubernetes_secret_v1" "sealed-secrets-key" {
   }
 
   data = {
-    "tls.crt" = var.cert.certificate_path
-    "tls.key" = var.cert.certificate_key_path
+    "tls.crt" = coalesce(var.certificate_path, file("${path.module}/certs/sealed-secrets.cert"))
+    "tls.key" = coalesce(var.certificate_key_path, file("${path.module}/certs/sealed-secrets.key"))
   }
 }

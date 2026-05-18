@@ -17,6 +17,10 @@ output/
 
 *.cert
 *.key
-
 *.pem
 *.crt
+
+components/terraform/**/*.planfile
+components/terraform/**/*.tfstate
+components/terraform/**/*.tf.json
+components/terraform/**/*.terraform.tfvars.json

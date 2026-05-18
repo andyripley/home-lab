@@ -1,5 +1,5 @@
 resource "talos_image_factory_schematic" "this" {
-  schematic = var.image.schematic
+  schematic = file("${path.module}/configs/talos-schematic.yaml")
 }
 
 data "talos_image_factory_urls" "this" {

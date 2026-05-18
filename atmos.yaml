@@ -12,23 +12,38 @@ components:
   
 stacks:
   base_path: "stacks"
-  include_paths:
+  included_paths:
     - "deploy/**/*"
   exclude_paths:
-    - "**/defaults.tf"
-  name_template: "{{ .vars.environment }}"
+    - "**/_defaults.yaml"
+  name_template: "home-lab"
 
 workflows:
   base_path: "stacks/workflows"
 
+stores:
+  home-lab/gcp:
+    type: google-secret-manager
+    options:
+      project_id: "prj-home-lab"
+
 validate:
-  editorconfig: true
+  editorconfig:
   config_file_paths:
     - ".editorconfig"
   exclude:
     - ".terraform/**"
   disable_max_line_length: true
   disable_trim_trailing_whitespace: true
+
+templates:
+  settings:
+    enabled: true
+    evalutions: 2
+    gomplate:
+      enabled: true
+    sprig:
+      enabled: true
 
 settings:
   experimental: silence

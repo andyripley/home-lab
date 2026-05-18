@@ -1,0 +1,25 @@
+import:
+  - catalog/_defaults
+
+components:
+  terraform:
+    talos:
+      providers:
+        proxmox:
+          endpoint: "https://pve1.ley.rip:8006"
+          username: !store.get home-lab/gcp pve_username | default "fake_username"
+          password: !store.get home-lab/gcp pve_password | default "fake_password"
+          ssh:
+            agent: true
+      hooks:
+        store-outputs:
+          outputs:
+            kube_config: .kube_config.kubeconfig_raw
+      metadata:
+        component: talos
+      # yaml-language-server-disable
+      vars: !include stacks/catalog/talos.tfvars
+      dependencies:
+        # yaml-language-server-disable
+        components:
+          - component: setup

@@ -46,11 +46,11 @@ resource "kubernetes_secret_v1" "this" {
   data = {
     "config.yaml" = <<EOF
 clusters:
-- url: "${var.proxmox.endpoint}/api2/json"
-  insecure: ${var.proxmox.insecure}
+- url: "${var.pve_endpoint}/api2/json"
+  insecure: ${var.insecure}
   token_id: "${proxmox_user_token.this.id}"
   token_secret: "${element(split("=", proxmox_user_token.this.value), length(split("=", proxmox_user_token.this.value)) - 1)}"
-  region: ${var.proxmox.cluster_name}
+  region: ${var.pve_cluster_name}
 EOF
   }
 }

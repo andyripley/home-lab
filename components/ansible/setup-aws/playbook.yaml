@@ -1,0 +1,49 @@
+---
+- hosts: localhost
+  module_defaults:
+    group/aws:
+      region: "{{ aws_region }}"
+  tasks:
+  - name: Create S3 bucket for Terraform state
+    amazon.aws.s3_bucket:
+        name: "{{ bucket_name }}"
+        state: present
+
+  - name: Find git root directory
+    ansible.builtin.command: git rev-parse --show-toplevel
+    register: git_root
+    changed_when: false
+
+  - name: Create Sealed Secrets cert and key
+    when: "{{ renew_sealed_secrets }}"
+    ansible.builtin.command: |
+      openssl req -x509 -days 365 -nodes -newkey rsa:4096 \
+      -keyout {{ git_root.stdout }}/certs/sealed-secrets.key \
+      -out {{ git_root.stdout }}/certs/sealed-secrets.cert \
+      -subj "/CN=sealed-secret/O=sealed-secret"
+  
+  - name: Add Sealed Secrets cert to SSM Parameter Store
+    when: "{{ renew_sealed_secrets }}"
+    community.aws.ssm_parameter:
+      name: "sealed-secrets-cert"
+      state: present
+      string_type: "SecureString"
+      value: "{{ lookup('file', git_root.stdout + '/certs/sealed-secrets.cert') }}"
+    register: sealed_secrets_cert
+  
+  - name: Add Sealed Secrets key to SSM Parameter Store
+    when: "{{ renew_sealed_secrets }}"
+    community.aws.ssm_parameter:
+      name: "sealed-secrets-key"
+      state: present
+      string_type: "SecureString"
+      value: "{{ lookup('file', git_root.stdout + '/certs/sealed-secrets.key') }}"
+    register: sealed_secrets_key
+
+  - name: Add SSH Public Key to SSM Parameter Store
+    community.aws.ssm_parameter:
+      name: "ssh-public-key"
+      state: present
+      string_type: "SecureString"
+      value: "{{ lookup('file', ssh_public_key_path) }}"
+    register: ssh_public_key 

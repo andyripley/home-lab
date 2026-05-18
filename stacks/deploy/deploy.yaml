@@ -1,0 +1,4 @@
+import:
+  - catalog/gcp-setup
+  - catalog/talos
+  - catalog/proxmox-csi

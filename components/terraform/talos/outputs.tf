@@ -4,7 +4,8 @@ output "machine_secrets" {
 }
 
 output "machine_config" {
-  value = data.talos_machine_configuration.this
+  value     = data.talos_machine_configuration.this
+  sensitive = true
 }
 
 output "client_configuration" {
