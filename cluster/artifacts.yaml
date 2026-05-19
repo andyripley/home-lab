@@ -13,10 +13,10 @@ spec:
     - name: infra
       originRevision: "@home-lab"
       copy:
-        - from: "@home-lab/k8s/infra/**"
+        - from: "@home-lab/infra/**"
           to: "@artifact/"
     - name: apps
       originRevision: "@home-lab"
       copy:
-        - from: "@home-lab/k8s/apps/**"
+        - from: "@home-lab/apps/**"
           to: "@artifact/"
