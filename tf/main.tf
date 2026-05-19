@@ -109,6 +109,7 @@ module "proxmox_csi_vols" {
 resource "flux_bootstrap_git" "this" {
   depends_on = [module.talos]
 
+  components_extra       = ["source-watcher"]
   embedded_manifests     = true
   kustomization_override = file("${path.root}/../cluster/flux-system/kustomization.yaml")
   path                   = "cluster"
