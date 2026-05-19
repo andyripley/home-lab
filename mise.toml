@@ -4,11 +4,6 @@ tflint = "latest"
 yamlfmt = "latest"
 opentofu = "1.11"
 talosctl = "1.13.0"
-kubeseal = "latest"
-aws = "2.34.45"
-atmos = "1.217.0"
-ansible = { version = "latest", pipx_args = "--include-deps", uvx = "false" }
-"pipx:ansible-lint" = "latest"
 gcloud = "latest"
 
 [env]
