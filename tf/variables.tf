@@ -13,6 +13,11 @@ variable "gcp_location" {
   type        = string
 }
 
+variable "github_pat_token" {
+  description = "The PAT Token used to bootstrapping FluxCD"
+  type        = string
+}
+
 variable "pve_endpoint" {
   description = "The API endpoint for Proxmox VE"
   type        = string

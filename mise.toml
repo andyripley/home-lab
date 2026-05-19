@@ -5,6 +5,7 @@ yamlfmt = "latest"
 opentofu = "1.11"
 talosctl = "1.13.0"
 gcloud = "latest"
+flux2 = "latest"
 
 [env]
 _.file = '.env'

@@ -1,0 +1,22 @@
+---
+apiVersion: source.extensions.fluxcd.io/v1beta1
+kind: ArtifactGenerator
+metadata:
+  name: flux-system
+  namespace: flux-system
+spec:
+  sources:
+    - alias: home-lab
+      kind: GitRepository
+      name: flux-system
+  artifacts:
+    - name: infra
+      originRevision: "@home-lab"
+      copy:
+        - from: "@home-lab/k8s/infra/**"
+          to: "@artifact/"
+    - name: apps
+      originRevision: "@home-lab"
+      copy:
+        - from: "@home-lab/k8s/apps/**"
+          to: "@artifact/"
