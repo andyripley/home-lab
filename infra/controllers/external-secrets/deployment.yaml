@@ -27,10 +27,12 @@ spec:
         memory: 256Mi
   install:
     createNamespace: false
-    crds: CreateReplace
+    crds: Create
+    serverSideApply: true
     remediation:
       retries: 3
   upgrade:
     crds: CreateReplace
+    serverSideApply: true
     remediation:
       retries: 3
