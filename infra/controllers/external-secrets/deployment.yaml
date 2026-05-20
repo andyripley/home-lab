@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: external-secrets
-  namespace: external-secrets
+  namespace: flux-system
 spec:
   interval: 10m
   releaseName: external-secrets
@@ -14,7 +14,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: external-secrets
-        namespace: external-secrets
+        namespace: flux-system
   targetNamespace: external-secrets
   values:
     installCRDs: false

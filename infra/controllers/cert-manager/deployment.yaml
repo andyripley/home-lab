@@ -22,8 +22,11 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    config:
+      enableGatewayAPI: true
     crds:
       enabled: true
+    dns01RecursiveNameservers: "1.1.1.1:53"
     resources:
       requests:
         cpu: 10m
