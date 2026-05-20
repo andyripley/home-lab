@@ -110,9 +110,10 @@ resource "flux_bootstrap_git" "this" {
   depends_on = [module.talos]
 
   components_extra       = ["source-watcher"]
-  embedded_manifests     = true
+  embedded_manifests     = false
   kustomization_override = file("${path.root}/../cluster/flux-system/kustomization.yaml")
   path                   = "cluster"
+  version                = "v2.8.8"
 }
 
 module "external_secrets" {
