@@ -14,7 +14,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: external-secrets
-        namespace: external-secrets
+        namespace: flux-system
   targetNamespace: external-secrets
   values:
     installCRDs: true
