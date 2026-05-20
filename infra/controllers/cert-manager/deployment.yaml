@@ -16,6 +16,11 @@ spec:
         name: cert-manager-helm
         namespace: flux-system
   targetNamespace: cert-manager
+  install:
+    createNamespace: true
+    crds: Create
+  upgrade:
+    crds: CreateReplace
   values:
     crds:
       enabled: true
@@ -39,8 +44,3 @@ spec:
           memory: 64Mi
         limits:
           memory: 64Mi
-  install:
-    createNamespace: true
-    crds: Create
-  update:
-    crds: CreateReplace
