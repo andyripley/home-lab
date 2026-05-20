@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - repository.yaml
   - deployment.yaml
-  - gcp-secret-store.yaml
+  - aws-secret-manager.yaml
