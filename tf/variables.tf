@@ -1,3 +1,13 @@
+variable "aws_region" {
+  description = "The AWS region to use for resources"
+  type        = string
+}
+
+variable "aws_bucket_name" {
+  description = "The name of the AWS S3 bucket to use for Terraform state"
+  type        = string
+}
+
 variable "gcp_bucket_name" {
   description = "The name of the GCP storage bucket to use for Terraform state"
   type        = string

@@ -1,10 +1,8 @@
 locals {
-  service_account = kubernetes_service_account_v1.external_secrets.metadata[0].name
   namespace = kubernetes_namespace_v1.external_secrets.metadata[0].name
-  workload_identity_pool_id = google_iam_workload_identity_pool.external_secrets.workload_identity_pool_id
 }
 
-data "google_project" "this" {}
+data "aws_caller_identity" "this" {}
 
 resource "kubernetes_namespace_v1" "external_secrets" {
   metadata {
@@ -12,45 +10,53 @@ resource "kubernetes_namespace_v1" "external_secrets" {
   }
 }
 
-resource "kubernetes_service_account_v1" "external_secrets" {
+resource "aws_iam_user" "eso_user" {
+  name = "external-secrets"
+}
+
+resource "aws_iam_policy" "eso_policy" {
+  name        = "external-secrets-policy"
+  description = "Policy for External Secrets Operator to access AWS Secrets Manager"
+  policy      = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "secretsmanager:GetResourcePolicy",
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret",
+          "secretsmanager:ListSecretVersionIds",
+          "secretsmanager:ListSecrets",
+          "secretsmanager:BatchGetSecretValue",
+        ]
+        Resource = "arn:aws:secretsmanager:us-east-1:${data.aws_caller_identity.this.account_id}:secret:*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_user_policy_attachment" "eso_policy_attachment" {
+  user       = aws_iam_user.eso_user.name
+  policy_arn = aws_iam_policy.eso_policy.arn
+}
+
+resource "aws_iam_access_key" "eso_access_key" {
+  user = aws_iam_user.eso_user.name
+}
+
+resource "kubernetes_secret_v1" "eso_aws_access_key" {
   metadata {
-    name      = "sa-external-secrets"
-    namespace = "external-secrets"
-  }
-}
-
-data "http" "cluster_jwks" {
-  url = "${var.k8s_host}/openid/v1/jwks"
-  ca_cert_pem = var.k8s_client_ca_cert
-  client_cert_pem = var.k8s_client_cert
-  client_key_pem = var.k8s_client_key
-}
-
-resource "google_iam_workload_identity_pool" "external_secrets" {
-  workload_identity_pool_id = "home-lab"
-  display_name             = "Home Lab Identity Pool"
-}
-
-resource "google_iam_workload_identity_pool_provider" "external_secrets" {
-  workload_identity_pool_id = google_iam_workload_identity_pool.external_secrets.workload_identity_pool_id
-  workload_identity_pool_provider_id = "home-lab-k8s-oidc"
-  display_name = "Home Lab K8s OIDC"
-
-  attribute_mapping = {
-    "google.subject": "assertion.sub"
+    name      = "eso-aws-secret"
+    namespace = local.namespace
   }
 
-  oidc {
-    issuer_uri = var.k8s_host
-    jwks_json  = data.http.cluster_jwks.response_body
+  data = {
+    access_key = aws_iam_access_key.eso_access_key.id
+    secret_key = aws_iam_access_key.eso_access_key.secret
   }
+
+  type = "Opaque"
 }
 
-resource "google_project_iam_binding" "external_secrets" {
-  project = data.google_project.this.project_id
-  role    = "roles/secretmanager.secretAccessor"
 
-  members = [
-    "principal://iam.googleapis.com/projects/${data.google_project.this.number}/locations/global/workloadIdentityPools/${local.workload_identity_pool_id}/subject/ystem:serviceaccount:default:${local.service_account}"
-  ]
-}

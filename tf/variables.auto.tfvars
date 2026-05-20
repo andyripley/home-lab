@@ -1,3 +1,5 @@
+aws_region = "us-east-1"
+aws_bucket_name = "home-lab-state"
 gcp_bucket_name = "home-lab-state"
 gcp_location = "us-east1"
 gcp_project = "prj-home-lab"
