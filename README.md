@@ -5,19 +5,19 @@ This is my best attempt at migrating my home lab from a single-node, docker base
 
 # Components
 ## OpenTofu/Terraform Modules**
-- `gcp-setup`: *Work in Progress* This is used for statefile storage and potentially for secrets provisioning.  
-    - This might be moved to a different directory in the future to remove it from the Cluster provisioning.  
+- `gcp-setup`: *Work in Progress* This is used for statefile storage and some secret management.
+  - Will be migrated to AWS as I'm able to provision the access needed easier with Terraform.  
 - `talos`: Builds the VMs in Proxmox and configures Talos Linux. 
 - `storage/proxmox_csi`: Provisions the role and users for proxmox-csi and deploys the user details in a K8s secret. 
 - `storage/proxmox_csi_vols`: Deploys the raw disk images in Proxmox for the CSI and creates the PVs for K8s.  
-- `external-secrets`: *Work in Progress* Deployment of External Secrets in K8s along with the needed GCP resources.
+- `external-secrets`: Deployment of External Secrets in K8s along with the needed AWS resources.
 
 # Todo
 
 - **Tofu**
-    - [ ] Complete the External Secrets deployment
+    - [x] Complete the External Secrets deployment
 - **K8s/Flux**
-    - [ ] External Secrets deployment of Cluster Secret Store
+    - [x] External Secrets deployment of Cluster Secret Store
     - [ ] Traefik with Cert Manager using Gateway API
     - [ ] Migrate docker containers
     - [ ] Monitoring with Grafana and VictoriaMetrics
