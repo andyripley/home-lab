@@ -13,7 +13,7 @@ spec:
       version: v1.20.2
       sourceRef:
         kind: HelmRepository
-        name: cert-manager-helm
+        name: cert-manager
         namespace: flux-system
   targetNamespace: cert-manager
   install:
