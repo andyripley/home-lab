@@ -5,7 +5,7 @@ metadata:
   name: external-secrets
   namespace: flux-system
 spec:
-  interval: 1h
+  interval: 10m
   releaseName: external-secrets
   chart:
     spec:
@@ -14,7 +14,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: external-secrets
-        namespace: flux-system
   targetNamespace: external-secrets
   values:
     installCRDs: true
