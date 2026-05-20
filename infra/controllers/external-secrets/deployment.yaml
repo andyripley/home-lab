@@ -13,11 +13,11 @@ spec:
       version: "2.5.0"
       sourceRef:
         kind: HelmRepository
-        name: external-secrets
+        name: external-secrets-helm
         namespace: external-secrets
   targetNamespace: external-secrets
   values:
-    installCRDs: true
+    installCRDs: false
     resources:
       requests:
         cpu: 50m
@@ -27,12 +27,3 @@ spec:
         memory: 256Mi
   install:
     createNamespace: false
-    crds: Create
-    serverSideApply: true
-    remediation:
-      retries: 3
-  upgrade:
-    crds: CreateReplace
-    serverSideApply: true
-    remediation:
-      retries: 3
