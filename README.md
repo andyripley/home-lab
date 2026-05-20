@@ -17,6 +17,7 @@ This is my best attempt at migrating my home lab from a single-node, docker base
 - **Tofu**
     - [ ] Complete the External Secrets deployment
 - **K8s/Flux**
+    - [ ] External Secrets deployment of Cluster Secret Store
     - [ ] Traefik with Cert Manager using Gateway API
     - [ ] Migrate docker containers
     - [ ] Monitoring with Grafana and VictoriaMetrics
