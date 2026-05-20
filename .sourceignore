@@ -1,0 +1,7 @@
+# Exclude all
+/*
+
+# Include manifest directories
+!/apps/
+!/cluster/
+!/infra/

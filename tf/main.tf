@@ -59,7 +59,7 @@ module "talos" {
       dns          = ["10.13.37.10"]
       vm_id        = 302
       cpu_cores    = 2
-      ram          = 4096
+      ram          = 8192
       datastore_id = "vm_data"
     }
   }
