@@ -13,5 +13,6 @@ spec:
         cloudflare:
           email: andy@ley.rip
           apiTokenSecretRef:
+            namespace: cert-manager
             name: cloudflare-api-token
             key: api-key
