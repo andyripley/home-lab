@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: traefik
-        namespace: flux-system
+        namespace: traefik
   targetNamespace: traefik
   values:
     ports:
