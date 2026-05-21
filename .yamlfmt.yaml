@@ -1,0 +1,10 @@
+gitignore_excludes: true
+gitignore_path: .gitignore
+
+exclude:
+  - "cluster/flux-system/*.yaml"
+
+formatter:
+  type: basic
+  eof_newline: true
+  retain_line_breaks_single: true

@@ -1,19 +1,37 @@
-module "gcp-setup" {
-  source = "./modules/gcp-setup"
+resource "aws_s3_bucket" "state" {
+  bucket = var.aws_bucket_name
 
-  bucket_name  = var.gcp_bucket_name
-  location     = var.gcp_location
-  pve_username = var.pve_username
-  pve_password = var.pve_password
+  tags = {
+    Name        = var.aws_bucket_name
+    Environment = "home-lab"
+  }
+}
+
+resource "aws_s3_bucket_versioning" "state" {
+  bucket = aws_s3_bucket.state.id
+  region = var.aws_region
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "state" {
+  bucket = aws_s3_bucket.state.id
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "aws:kms"
+    }
+    bucket_key_enabled = true
+  }
 }
 
 import {
-  id = var.gcp_bucket_name
-  to = module.gcp-setup.google_storage_bucket.terraform_state
+  id = var.aws_bucket_name
+  to = aws_s3_bucket.state
 }
 
 module "talos" {
-  depends_on = [module.gcp-setup]
+  depends_on = [aws_s3_bucket.state]
   source     = "./modules/talos"
 
   providers = {
@@ -66,7 +84,7 @@ module "talos" {
 }
 
 module "proxmox_csi" {
-  depends_on = [module.gcp-setup, module.talos]
+  depends_on = [module.talos]
   source     = "./modules/storage/proxmox_csi"
 
   providers = {
@@ -79,7 +97,9 @@ module "proxmox_csi" {
 }
 
 module "proxmox_csi_vols" {
-  source = "./modules/storage/proxmox_csi_vols"
+  depends_on = [module.proxmox_csi]
+  source     = "./modules/storage/proxmox_csi_vols"
+
   providers = {
     kubernetes = kubernetes
     restapi    = restapi
@@ -117,16 +137,11 @@ resource "flux_bootstrap_git" "this" {
 }
 
 module "external_secrets" {
-  source = "./modules/external-secrets"
+  depends_on = [module.talos]
+  source     = "./modules/external-secrets"
 
   providers = {
     kubernetes = kubernetes
-    google     = google
+    aws        = aws
   }
-
-  k8s_host           = module.talos.kube_config.kubernetes_client_configuration.host
-  k8s_client_ca_cert = base64decode(module.talos.kube_config.kubernetes_client_configuration.ca_certificate)
-  k8s_client_cert    = base64decode(module.talos.kube_config.kubernetes_client_configuration.client_certificate)
-  k8s_client_key     = base64decode(module.talos.kube_config.kubernetes_client_configuration.client_key)
 }
-

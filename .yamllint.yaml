@@ -1,0 +1,13 @@
+extends: default
+
+ignore: |
+  .git/*
+  .terraform/*
+  cluster/flux-system/*.yaml
+  output/*
+  .archive/*
+
+rules:
+  comments-indentation: disable
+  document-start: disable
+  line-length: disable

@@ -1,11 +1,8 @@
 [tools]
-yamllint = "latest"
-tflint = "latest"
-yamlfmt = "latest"
+flux2 = "latest"
 opentofu = "1.11"
 talosctl = "1.13.0"
-gcloud = "latest"
-flux2 = "latest"
+tflint = "latest"
+yamlfmt = "latest"
+yamllint = "latest"
 
-[env]
-_.file = '.env'

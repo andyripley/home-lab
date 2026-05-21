@@ -1,7 +1,10 @@
 terraform {
-  backend "gcs" {
-    bucket = "home-lab-state"
-    prefix = "tofu"
+  required_version = ">= 1.11.0"
+
+  backend "s3" {
+    bucket = var.aws_bucket_name
+    region = var.aws_region
+    key    = "tofu/home-lab.tfstate"
   }
 
   required_providers {
@@ -9,9 +12,9 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 6.0"
     }
-    google = {
-      source  = "hashicorp/google"
-      version = "~> 7.0"
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.0"
     }
     proxmox = {
       source  = "bpg/proxmox"
@@ -30,22 +33,21 @@ terraform {
       version = "~> 3.0"
     }
     flux = {
-      source = "fluxcd/flux"
+      source  = "fluxcd/flux"
       version = "~> 1.8"
     }
   }
 }
 
-provider "google" {
-  project = var.gcp_project
-  region  = var.gcp_location
+provider "aws" {
+  region = var.aws_region
 }
 
 provider "proxmox" {
   endpoint = var.pve_endpoint
   insecure = false
-  username = var.pve_username
-  password = var.pve_password
+  username = local.pve_username
+  password = local.pve_password
   ssh {
     agent = true
   }
@@ -62,11 +64,11 @@ provider "restapi" {
   uri                  = var.pve_endpoint
   insecure             = false
   write_returns_object = true
-  debug = true
+  debug                = true
 
   headers = {
     "Content-Type"  = "application/json"
-    "Authorization" = "PVEAPIToken=${var.pve_api_token}"
+    "Authorization" = "PVEAPIToken=${local.pve_api_token}"
   }
 }
 
@@ -81,7 +83,7 @@ provider "flux" {
     url = "https://github.com/andyripley/home-lab.git"
     http = {
       username = "git"
-      password = var.github_pat_token
+      password = local.github_pat_token
     }
   }
 }

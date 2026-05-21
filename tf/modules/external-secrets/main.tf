@@ -17,7 +17,7 @@ resource "aws_iam_user" "eso_user" {
 resource "aws_iam_policy" "eso_policy" {
   name        = "external-secrets-policy"
   description = "Policy for External Secrets Operator to access AWS Secrets Manager"
-  policy      = jsonencode({
+  policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
