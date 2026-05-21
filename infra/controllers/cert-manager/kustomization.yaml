@@ -5,4 +5,5 @@ metadata:
 resources:
   - repository.yaml
   - deployment.yaml
-  - secret-cloudflare.yaml
+  - cloudflare-secret.yaml
+  - cloudflare-issuer.yaml
