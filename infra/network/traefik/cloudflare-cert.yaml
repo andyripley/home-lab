@@ -12,6 +12,6 @@ spec:
     group: cert-manager.io
     name: cloudflare-issuer
     kind: ClusterIssuer
-  usage:
+  usages:
     - digital signature
     - key encipherment
