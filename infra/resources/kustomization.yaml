@@ -3,5 +3,5 @@ kind: Kustomization
 metadata:
   name: resources
 resources:
-  - external-secrets
   - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.5.1/standard-install.yaml # Traefik Gateway API support
+  - external-secrets

@@ -5,3 +5,4 @@ metadata:
 resources:
   - repository.yaml
   - deployment.yaml
+  - aws-secret-manager.yaml
