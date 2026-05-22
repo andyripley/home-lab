@@ -10,5 +10,5 @@ spec:
   sourceRef:
     kind: GitRepository
     name: external-secrets-git
-    namespace: flux-system
+    namespace: external-secrets
   targetNamespace: external-secrets
