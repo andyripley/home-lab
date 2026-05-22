@@ -1,4 +1,15 @@
 apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: external-secrets-git
+  namespace: external-secrets
+spec:
+  interval: 10m
+  ref:
+    tag: v2.5.0
+  url: https://github.com/external-secrets/external-secrets
+---
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: external-secrets
