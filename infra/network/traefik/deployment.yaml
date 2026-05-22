@@ -38,25 +38,5 @@ spec:
         enabled: false
       kubernetesGateway:
         enabled: true
-    gateway:
-      addresses:
-        - type: IPAddress
-          value: 10.13.37.24
-      listeners:
-        web:
-          port: 80
-          protocol: HTTP
-          namespacePolicy:
-            from: All
-        websecure:
-          port: 443
-          protocol: HTTPS 
-          namespacePolicy:
-            from: All
-          mode: Terminate
-          certificateRefs:    
-            - kind: Secret
-              name: cloudflare-cert
-              group: ""
   install:
     createNamespace: false
