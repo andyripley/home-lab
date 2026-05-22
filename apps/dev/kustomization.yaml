@@ -3,3 +3,5 @@ kind: Kustomization
 namespace: dev
 resources:
   - namespace.yaml
+  - deployment.yaml
+  - http-route.yaml
