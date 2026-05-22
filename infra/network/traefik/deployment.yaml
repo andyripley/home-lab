@@ -39,6 +39,9 @@ spec:
       kubernetesGateway:
         enabled: true
     gateway:
+      addresses:
+        - type: IPAddress
+          value: 10.13.37.24
       listeners:
         web:
           port: 80
