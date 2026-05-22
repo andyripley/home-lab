@@ -7,4 +7,5 @@ resources:
   - repository.yaml
   - deployment.yaml
   - cloudflare-cert.yaml
+  - gateway.yaml
   - gateway-class.yaml
