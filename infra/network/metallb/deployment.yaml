@@ -16,3 +16,6 @@ spec:
   targetNamespace: metallb-system
   install:
     createNamespace: false
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
