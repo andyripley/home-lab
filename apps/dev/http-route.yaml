@@ -6,7 +6,8 @@ metadata:
 spec:
   parentRefs:
   - name: traefik-gateway
-    sectionName: websecure  # The HTTPS listener
+    namespace: traefik
+    sectionName: websecure
   hostnames:
   - "whoami.ley.rip"
   rules:

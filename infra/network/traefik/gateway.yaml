@@ -5,9 +5,6 @@ metadata:
   namespace: traefik
 spec:
   gatewayClassName: traefik
-  addresses:
-  - type: IPAddress
-    value: 10.13.37.24
   listeners:
   - name: web
     port: 80
@@ -22,6 +19,7 @@ spec:
       namespaces:
         from: All
     tls:
+      mode: Terminate
       certificateRefs:
       - name: cloudflare-cert
         kind: Secret
