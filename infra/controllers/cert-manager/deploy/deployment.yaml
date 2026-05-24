@@ -6,14 +6,10 @@ metadata:
 spec:
   interval: 10m
   releaseName: cert-manager
-  chart:
-    spec:
-      chart: cert-manager
-      version: v1.20.2
-      sourceRef:
-        kind: HelmRepository
-        name: cert-manager
-        namespace: cert-manager
+  chartRef:
+    kind: OCIRepository
+    name: cert-manager
+    namespace: cert-manager
   targetNamespace: cert-manager
   dependsOn:
     - name: external-secrets
