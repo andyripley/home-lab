@@ -5,16 +5,14 @@ metadata:
   name: external-secrets-crds
   namespace: flux-system
 spec:
-  targetNamespace: external-secrets
-  path: ./infra/controllers/external-secrets/crds
+  interval: 10m
+  path: ./config/crds/bases
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
-  timeout: 5m
+    name: external-secrets-git
+    namespace: external-secrets
+  targetNamespace: external-secrets
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
