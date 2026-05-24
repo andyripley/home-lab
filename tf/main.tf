@@ -48,7 +48,7 @@ module "talos" {
     gateway            = "10.13.37.1"
     talos_version      = "v1.13"
     proxmox_cluster    = "pve-cluster"
-    kubernetes_version = "v1.36.0"
+    kubernetes_version = "v1.35.0"
     extra_manifests = [
       #Traefik and Gateway API CRDs.  
       "https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.5.1/standard-install.yaml",

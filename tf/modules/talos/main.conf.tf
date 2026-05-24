@@ -23,6 +23,7 @@ data "talos_machine_configuration" "this" {
       cluster_name    = var.cluster.proxmox_cluster
       extra_manifests = each.value.machine_type == "controlplane" ? jsonencode(var.cluster.extra_manifests) : null
       machine_type    = each.value.machine_type
+      kubernetes_version = var.cluster.kubernetes_version
     })
   ]
 }

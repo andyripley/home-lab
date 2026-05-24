@@ -15,9 +15,12 @@ spec:
         name: cert-manager
         namespace: cert-manager
   targetNamespace: cert-manager
+  dependsOn:
+    - name: external-secrets
+      namespace: external-secrets
   install:
     createNamespace: true
-    crds: Create
+    crds: CreateReplace
   upgrade:
     crds: CreateReplace
   values:
