@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: envoy-gateway-system
-  path: ./infra/envoy/deploy
+  path: ./infra/network/envoy/deploy
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ spec:
   targetNamespace: envoy-gateway-system
   dependsOn:
     - name: envoy-deploy
-  path: ./infra/envoy/resources
+  path: ./infra/network/envoy/resources
   prune: true
   sourceRef:
     kind: GitRepository
