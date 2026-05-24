@@ -9,7 +9,12 @@ spec:
   chartRef:
     kind: OCIRepository
     name: gateway
+  install:
+    crds: CreateReplace
+    serverSideApply: true
   upgrade:
+    crds: CreateReplace
+    serverSideApply: true
     strategy:
       name: RetryOnFailure
       retryInterval: 5m
