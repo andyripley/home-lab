@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: external-secrets
-  path: ./infra/external-secrets/crds
+  path: ./infra/controllers/external-secrets/crds
   prune: true
   sourceRef:
     kind: GitRepository
