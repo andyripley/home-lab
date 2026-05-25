@@ -7,7 +7,7 @@ spec:
   parentRefs:
   - name: envoy-gateway
     namespace: envoy-gateway-system
-    sectionName: https
+    sectionName: http
   hostnames:
   - "whoami.ley.rip"
   rules:
@@ -17,11 +17,4 @@ spec:
         value: /api
     backendRefs:
     - name: whoami-api
-      port: 80
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backendRefs:
-    - name: whoami
       port: 80
