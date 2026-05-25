@@ -1,34 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: whoami-api
-  namespace: dev
+  name: nginx-test-deployment
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: whoami-api
+      app: nginx
   template:
     metadata:
       labels:
-        app: whoami-api
+        app: nginx
     spec:
       containers:
-      - name: whoami
-        image: traefik/whoami
-        env:
-        - name: WHOAMI_NAME
-          value: "API Service"
-        ports:
-        - containerPort: 80
+      - image: nginx
+        name: nginx
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: whoami-api
-  namespace: dev
+  name: nginx-test-service
+  namespace: default
 spec:
   selector:
-    app: whoami-api
+    app: nginx
   ports:
-  - port: 80
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP

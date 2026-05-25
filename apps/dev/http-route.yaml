@@ -5,16 +5,16 @@ metadata:
   namespace: dev
 spec:
   parentRefs:
-  - name: envoy-gateway
+  - kind: Gateway
+    name: envoy-gateway
     namespace: envoy-gateway-system
-    sectionName: http
   hostnames:
   - "whoami.ley.rip"
   rules:
   - matches:
     - path:
         type: PathPrefix
-        value: /api
+        value: /
     backendRefs:
-    - name: whoami-api
+    - name: nginx-test-service
       port: 80
