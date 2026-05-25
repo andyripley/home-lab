@@ -16,7 +16,7 @@ cluster:
     image: registry.k8s.io/kube-proxy:${kubernetes_version}
     mode: ipvs
     extraArgs:
-      ipvs-strict-arp: "true"
+      ipvs-strict-arp: true
 %{ if machine_type == "controlplane" }
   allowSchedulingOnControlPlanes: true
   network:
