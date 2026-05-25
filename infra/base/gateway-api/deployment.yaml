@@ -9,6 +9,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: gateway-api-crds
-  path: ./config/crd
-  prune: false
+  path: ./config/crd/experimental
+  prune: true
   wait: true
