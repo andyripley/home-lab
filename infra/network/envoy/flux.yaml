@@ -25,6 +25,7 @@ spec:
   targetNamespace: envoy-gateway-system
   dependsOn:
     - name: envoy-deploy
+    - name: metallb-resources
   path: ./infra/network/envoy/resources
   prune: true
   sourceRef:

@@ -5,6 +5,12 @@ metadata:
   namespace: envoy-gateway-system
 spec:
   gatewayClassName: envoy-gateway-class
+  infrastructure:
+    annotations:
+       metallb.io/loadBalancerIPs: "10.13.37.30"
+  addresses:
+  - type: IPAddress
+    value: 10.13.37.30
   listeners:
   - name: http
     protocol: HTTP
