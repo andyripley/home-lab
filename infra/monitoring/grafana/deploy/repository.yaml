@@ -1,9 +1,13 @@
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+kind: OCIRepository
 metadata:
   name: grafana-operator
   namespace: monitoring
 spec:
   interval: 1h
-  type: oci
-  url: oci://ghcr.io/grafana/helm-charts
+  url: oci://ghcr.io/grafana/helm-charts/grafana-operator
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: copy
+  ref:
+    semver: ">=5.0.0 <6.0.0"
