@@ -32,7 +32,7 @@ resource "proxmox_download_file" "this" {
   content_type = "iso"
   datastore_id = var.image.proxmox_datastore
 
-  file_name               = "talos-${var.image.version}-${var.image.arch}.img"
+  file_name               = "talos-${each.key}-${var.image.version}-${var.image.arch}.img"
   url                     = data.talos_image_factory_urls.this.urls.disk_image
   decompression_algorithm = "zst"
   overwrite               = false
@@ -113,5 +113,22 @@ resource "proxmox_virtual_environment_vm" "this" {
       }
     }
   }
+}
 
+resource "proxmox_virtual_environment_firewall_options" "example" {
+  for_each  = var.nodes
+
+  node_name = proxmox_virtual_environment_vm.this[each.key].node_name
+  vm_id     = proxmox_virtual_environment_vm.this[each.key].vm_id
+
+  dhcp          = true
+  enabled       = false
+  ipfilter      = false
+  log_level_in  = "info"
+  log_level_out = "info"
+  macfilter     = false
+  ndp           = true
+  input_policy  = "ACCEPT"
+  output_policy = "ACCEPT"
+  radv          = true
 }

@@ -29,7 +29,7 @@ variable "nodes" {
     host_node    = string
     machine_type = string
     ip           = string
-    mac_address  = string
+    mac_address  = optional(string)
     dns          = optional(list(string))
     vm_id        = number
     cpu_cores    = number

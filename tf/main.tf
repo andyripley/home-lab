@@ -57,7 +57,6 @@ module "talos" {
       host_node    = "pve1"
       machine_type = "controlplane"
       ip           = "10.13.37.25"
-      mac_address  = "BC:24:11:00:00:25"
       dns          = ["10.13.37.10"]
       vm_id        = 301
       cpu_cores    = 2
@@ -68,11 +67,20 @@ module "talos" {
       host_node    = "pve2"
       machine_type = "controlplane"
       ip           = "10.13.37.26"
-      mac_address  = "BC:24:11:00:00:26"
       dns          = ["10.13.37.10"]
       vm_id        = 302
       cpu_cores    = 2
-      ram          = 8192
+      ram          = 6144
+      datastore_id = "vm_data"
+    }
+    "ctrl-3" = {
+      host_node    = "pve2"
+      machine_type = "controlplane"
+      ip           = "10.13.37.27"
+      dns          = ["10.13.37.10"]
+      vm_id        = 303
+      cpu_cores    = 2
+      ram          = 6144
       datastore_id = "vm_data"
     }
   }
