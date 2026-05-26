@@ -1,14 +1,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: grafana
+  name: grafana-operator
   namespace: monitoring
 spec:
   interval: 1h
   releaseName: grafana
   chart:
     spec:
-      chart: grafana
+      chart: grafana-operator
       version: 5.2.3
       sourceRef:
         kind: HelmRepository
