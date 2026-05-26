@@ -48,3 +48,20 @@ spec:
     name: infra
   path: ./network
   prune: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-monitoring
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-controllers
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  sourceRef:
+    kind: ExternalArtifact
+    name: infra
+  path: ./monitoring
+  prune: true
