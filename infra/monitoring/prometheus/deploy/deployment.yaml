@@ -22,6 +22,6 @@ spec:
     crds: CreateReplace
   values:
     grafana:
-      enabled: false
+      enabled: true
     nodeExporter:
       enabled: false
