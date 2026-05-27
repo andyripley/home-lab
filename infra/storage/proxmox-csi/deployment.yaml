@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: proxmox-csi
-  namespace: csi-promox
+  namespace: csi-proxmox
 spec:
   interval: 1h
   releaseName: proxmox-csi-plugin
@@ -13,8 +13,8 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: proxmox-csi
-        namespace: csi-plugin
-  targetNamespace: csi-plugin
+        namespace: csi-proxmox
+  targetNamespace: csi-proxmox
   install:
     createNamespace: false
     crds: CreateReplace
