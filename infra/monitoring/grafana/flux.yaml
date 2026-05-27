@@ -20,6 +20,8 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: monitoring
+  dependsOn:
+    - name: grafana-operator-crds
   path: ./infra/monitoring/grafana/deploy
   prune: true
   sourceRef:
