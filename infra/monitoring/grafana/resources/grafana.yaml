@@ -32,10 +32,10 @@ spec:
                 - name: GF_SECURITY_ADMIN_USER
                   valueFrom:
                     secretKeyRef:
-                      key: grafana-admin
-                      name: username
+                      name: grafana-admin
+                      key: username
                 - name: GF_SECURITY_ADMIN_PASSWORD
                   valueFrom:
                     secretKeyRef:
-                      key: grafana-admin
-                      name: password
+                      name: grafana-admin
+                      key: password
