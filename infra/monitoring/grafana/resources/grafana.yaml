@@ -20,12 +20,10 @@ spec:
                 - name: GF_SECURITY_ADMIN_USER
                   valueFrom:
                     secretKeyRef:
-                      key: generic-admin
+                      key: grafana-admin
                       name: username
-                      namespace: external-secrets
                 - name: GF_SECURITY_ADMIN_PASSWORD
                   valueFrom:
                     secretKeyRef:
-                      key: generic-admin
+                      key: grafana-admin
                       name: password
-                      namespace: external-secrets
