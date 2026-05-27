@@ -22,10 +22,10 @@ spec:
                     secretKeyRef:
                       key: generic-admin
                       name: username
-                      namespace: default
+                      namespace: external-secrets
                 - name: GF_SECURITY_ADMIN_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       key: generic-admin
                       name: password
-                      namespace: default
+                      namespace: external-secrets
