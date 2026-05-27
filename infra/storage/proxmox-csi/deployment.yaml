@@ -8,7 +8,7 @@ spec:
   releaseName: proxmox-csi-plugin
   chart:
     spec:
-      chart: proxmox-csi
+      chart: proxmox-csi-plugin
       version: v0.18.1
       sourceRef:
         kind: HelmRepository
