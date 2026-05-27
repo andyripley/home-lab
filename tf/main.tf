@@ -59,8 +59,8 @@ module "talos" {
       ip           = "10.13.37.25"
       dns          = ["10.13.37.10"]
       vm_id        = 301
-      cpu_cores    = 2
-      ram          = 4096
+      cpu_cores    = 4
+      ram          = 6144
       datastore_id = "vm_data"
     }
     "ctrl-2" = {
@@ -118,13 +118,25 @@ module "proxmox_csi_vols" {
       node = "pve1"
       size = "4G"
     }
-    pv-lidarr = {
+    pv-bazaar = {
       node = "pve1"
       size = "4G"
     }
     pv-prowlarr = {
       node = "pve1"
       size = "4G"
+    }
+    pv-jellyfin = {
+      node = "pve1"
+      size = "20G"
+    }
+    pv-sabnzbd = {
+      node = "pve1"
+      size = "4G"
+    }
+    pv-prometheus = {
+      node = "pve2"
+      size = "20G"
     }
   }
 }

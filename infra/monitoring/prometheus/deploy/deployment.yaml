@@ -15,14 +15,11 @@ spec:
         kind: HelmRepository
         name: prometheus
         namespace: monitoring
+      valuesFiles:
+        - values.yaml
   targetNamespace: monitoring
   install:
     createNamespace: false
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
-  values:
-    grafana:
-      enabled: true
-    nodeExporter:
-      enabled: false
