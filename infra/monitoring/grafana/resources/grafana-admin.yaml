@@ -12,11 +12,11 @@ spec:
     name: grafana-admin
     creationPolicy: Owner
   data:
-  - secretKey: admin-username
+  - secretKey: username
     remoteRef:
       key: generic-admin
       property: username
-  - secretKey: admin-password
+  - secretKey: password
     remoteRef:
       key: generic-admin
       property: password

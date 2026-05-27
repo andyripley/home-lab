@@ -17,10 +17,11 @@ spec:
   httpRoute:
     spec:
       parentRefs:
-        - name: eg
-          namespace: envoy-gateway-system
+      - name: eg
+        namespace: envoy-gateway-system
       hostnames:
-        - grafana.ley.rip
+      - grafana.ley.rip
+      
   deployment:
     spec:
       template:
