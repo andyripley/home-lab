@@ -23,3 +23,5 @@ spec:
   values:
     grafana:
       enabled: false
+    nodeExporter:
+      enabled: false
