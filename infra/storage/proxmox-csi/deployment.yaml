@@ -20,6 +20,7 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    existingConfigSecret: proxmox-csi-plugin
     storageClass:
     - name: proxmox-csi
       cache: writethrough
