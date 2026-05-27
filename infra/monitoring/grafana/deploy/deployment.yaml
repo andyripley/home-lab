@@ -12,6 +12,7 @@ spec:
   maxHistory: 5
   install:
     crds: CreateReplace
+    serverSideApply: true
     remediation:
       retries: 3
   upgrade:
@@ -32,3 +33,5 @@ spec:
       enabled: true
     dashboard:
       enabled: true
+    crds:
+      immutable: false
