@@ -25,3 +25,25 @@ spec:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
+  values:
+    prometheus:
+      prometheusSpec:
+        nodeSelector:
+          topoology.kubernetes.io/zone: "pve2"
+        storageSpec:
+          volumeClaimTemplate:
+          spec:
+            storageClassName: proxmox-csi
+            volumeName: pv-prometheus
+            accessModes:
+            - ReadWriteOnce
+            resources:
+              requests:
+                storage: 20G
+            selector:
+              matchLabels:
+                app: prometheus
+    grafana:
+      enabled: false
+    nodeExporter:
+      enabled: false
