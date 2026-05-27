@@ -10,6 +10,13 @@ spec:
     log:
       mode: "console"
   disableDefaultAdminSecret: true
+  httpRoute:
+    spec:
+      parentRefs:
+        - name: eg
+          namespace: envoy-gateway-system
+      hostnames:
+        - grafana.ley.rip
   deployment:
     spec:
       template:
