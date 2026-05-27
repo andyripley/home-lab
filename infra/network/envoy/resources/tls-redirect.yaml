@@ -4,9 +4,7 @@ metadata:
   name: tls-redirect
 spec:
   parentRefs:
-    - kind: Gateway
-      name: envoy-gateway
-      namespace: envoy-gateway-system
+    - name: eg
       sectionName: http
   hostnames:
     - "*.ley.rip"

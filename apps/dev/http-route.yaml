@@ -5,8 +5,7 @@ metadata:
   namespace: dev
 spec:
   parentRefs:
-  - kind: Gateway
-    name: envoy-gateway
+  - name: eg
     namespace: envoy-gateway-system
   hostnames:
   - "cluster.ley.rip"

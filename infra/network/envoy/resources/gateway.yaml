@@ -1,7 +1,7 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: envoy-gateway
+  name: eg
   namespace: envoy-gateway-system
 spec:
   gatewayClassName: envoy-gateway-class
@@ -14,10 +14,11 @@ spec:
     port: 80
     allowedRoutes:
       namespaces:
-        from: All
+        from: Same
   - name: https
     protocol: HTTPS
     port: 443
+    hostname: "*.ley.rip"
     allowedRoutes:
       namespaces:
         from: All

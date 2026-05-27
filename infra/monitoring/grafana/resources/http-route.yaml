@@ -5,8 +5,7 @@ metadata:
   namespace: monitoring
 spec:
   parentRefs:
-  - kind: Gateway
-    name: envoy-gateway
+  - name: eg
     namespace: envoy-gateway-system
   hostnames:
   - "grafana.ley.rip"
