@@ -14,14 +14,13 @@ spec:
     server:
       root_url: https://grafana.ley.rip
   disableDefaultAdminSecret: true
-  httpRoute:
-    spec:
-      parentRefs:
-      - name: eg
-        namespace: envoy-gateway-system
-      hostnames:
-      - grafana.ley.rip
-      
+  # httpRoute:
+  #   spec:
+  #     parentRefs:
+  #     - name: eg
+  #       namespace: envoy-gateway-system
+  #     hostnames:
+  #     - grafana.ley.rip
   deployment:
     spec:
       template:
