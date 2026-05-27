@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: grafana-operator-git
+  namespace: monitoring
+spec:
+  interval: 10m
+  ref:
+    tag: v5.2.3
+  url: https://github.com/grafana/grafana-operator
