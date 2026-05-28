@@ -15,10 +15,6 @@ spec:
         kind: HelmRepository
         name: prometheus
         namespace: monitoring
-  valuesFrom:
-    - kind: ConfigMap
-      name: values-kube-prom-stack
-      valuesKey: values.yaml
   targetNamespace: monitoring
   install:
     createNamespace: false
@@ -35,6 +31,7 @@ spec:
           spec:
             storageClassName: proxmox-csi
             volumeName: pv-prometheus
+            
             accessModes:
             - ReadWriteOnce
             resources:
